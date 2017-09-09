@@ -78,8 +78,8 @@ deploy:
 
 # Extensions
 plugins:
-- hexo-generator-sitemap
-- hexo-generator-baidu-sitemap
+    #- hexo-generator-sitemap
+    #- hexo-generator-baidu-sitemap
 
 baidusitemap:
     path: baidusitemap.xml
