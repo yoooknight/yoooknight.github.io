@@ -1,0 +1,753 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP,十八哥,BOOL商城," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="框架的结构:  init.php(初始化框架) config.inc.php(配置文件的基本信息) config.class.php(读取配置文件的类):单例模式 db.class.php(数据库类)">
+<meta name="keywords" content="PHP,十八哥,BOOL商城">
+<meta property="og:type" content="article">
+<meta property="og:title" content="商城实战总结：搭建底层框架(一)">
+<meta property="og:url" content="http://yoursite.com/2016/02/18/商城实战总结-一/index.html">
+<meta property="og:site_name" content="YooKnight_Blog">
+<meta property="og:description" content="框架的结构:  init.php(初始化框架) config.inc.php(配置文件的基本信息) config.class.php(读取配置文件的类):单例模式 db.class.php(数据库类)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-09T08:11:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="商城实战总结：搭建底层框架(一)">
+<meta name="twitter:description" content="框架的结构:  init.php(初始化框架) config.inc.php(配置文件的基本信息) config.class.php(读取配置文件的类):单例模式 db.class.php(数据库类)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 商城实战总结：搭建底层框架(一) | YooKnight_Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YooKnight_Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-heartbeat fa-fw"></i> <br />
+            
+            公益
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                商城实战总结：搭建底层框架(一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-18T17:47:33+08:00" content="2016-02-18">
+              2016-02-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/PHP学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/18/商城实战总结-一/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/18/商城实战总结-一/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>框架的结构:</p>
+<ol>
+<li>init.php(初始化框架)</li>
+<li>config.inc.php(配置文件的基本信息)</li>
+<li>config.class.php(读取配置文件的类):单例模式</li>
+<li>db.class.php(数据库类)</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+<h1 id="一、init-php开发："><a href="#一、init-php开发：" class="headerlink" title="一、init.php开发："></a>一、init.php开发：</h1><p>功能:<br>1.设置目录常量<br>2.自动加载引入基本类库<br>3.过滤参数<br>4.报错级别设置<br>5.权限控制</p>
+<h2 id="1-设置目录常量"><a href="#1-设置目录常量" class="headerlink" title="1. 设置目录常量"></a>1. 设置目录常量</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 通过__FILE__获取init.php的路径</span></div><div class="line"><span class="comment">// 因为//在windows,和linux都可以用,所以要将\\替换成/</span></div><div class="line">defined(<span class="string">'ROOT'</span>) || define(<span class="string">'ROOT'</span>,str_replace(<span class="string">'\\'</span>,<span class="string">'/'</span>,dirname(dirname(<span class="keyword">__FILE__</span>))).<span class="string">'/'</span>);</div></pre></td></tr></table></figure>
+<h2 id="2-自动加载引入基本类库"><a href="#2-自动加载引入基本类库" class="headerlink" title="2. 自动加载引入基本类库"></a>2. 自动加载引入基本类库</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 自动加载的方法来引入</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Boolautoload</span><span class="params">($class)</span></span>&#123;</div><div class="line">	<span class="comment">//因为Model的命名规则是:xxxModel.class.php,类名就是xxxModel</span></div><div class="line">	<span class="keyword">if</span>(strtolower(substr($class,<span class="number">-5</span>)) == <span class="string">'Model'</span>)&#123;</div><div class="line">		<span class="keyword">require</span>(ROOT.<span class="string">'Model/'</span>.$class.<span class="string">'.class.php'</span>);</div><div class="line">	&#125;<span class="keyword">elseif</span>(strtolower(substr($class,<span class="number">-4</span>)) == <span class="string">'tool'</span>)&#123;</div><div class="line">		<span class="comment">//同样的,工具类也是这样命名的</span></div><div class="line">		<span class="keyword">require</span>(ROOT.<span class="string">'Tool/'</span>.$class.<span class="string">'.class.php'</span>);</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		<span class="keyword">require</span>(ROOT.<span class="string">'include/'</span>.$class.<span class="string">'.class.php'</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//注册自动加载</span></div><div class="line">spl_autoload_register(<span class="string">'Boolautoload'</span>);</div><div class="line"></div><div class="line"><span class="comment">//注:这里之所以用自动注册,是为了防止引入其他工具smarty也有自动加载函数,这样就会被覆盖,注册就不会产生这些问题;</span></div></pre></td></tr></table></figure>
+<h2 id="3-过滤参数"><a href="#3-过滤参数" class="headerlink" title="3. 过滤参数"></a>3. 过滤参数</h2><p>这里要用到递归的知识点;<br>注:过滤数据的时候最好不要用htmlspecialchars处理<br>因为当出现&lt;&gt;这些html标签的时候就不能正常显示了<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">__addslashes</span><span class="params">($arr)</span></span>&#123;</div><div class="line">	<span class="comment">//遍历传过来的数组</span></div><div class="line">	<span class="keyword">foreach</span>($arr <span class="keyword">as</span> $k=&gt;$v)&#123;</div><div class="line">		<span class="keyword">if</span>(is_array($v))&#123;</div><div class="line">			<span class="comment">// 递归处理数组</span></div><div class="line">			$arr[$k] = __addslashes[$v];</div><div class="line">		&#125;<span class="keyword">elseif</span>(is_string($v))&#123;</div><div class="line">			<span class="comment">// </span></div><div class="line">			$arr[$k] = addslashes($k);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> $arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="4-报错级别设置"><a href="#4-报错级别设置" class="headerlink" title="4. 报错级别设置"></a>4. 报错级别设置</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">报错级别</div><div class="line"><span class="comment">// 通过变量设置debug的默认状态为上线状态</span></div><div class="line">$debug = defined(<span class="string">'DEBUG'</span>)?DEBUG:<span class="keyword">null</span>;</div><div class="line"><span class="keyword">if</span>($debug)&#123;</div><div class="line">	error_reporting(E_ALL &amp; ~E_NOTICE);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">	error_reporting(<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="5-权限控制"><a href="#5-权限控制" class="headerlink" title="5. 权限控制"></a>5. 权限控制</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 不能直接访问的页面就添加</span></div><div class="line">defined(<span class="string">'ACC'</span>) || <span class="keyword">exit</span>(<span class="string">'ACC DENIED'</span>);</div><div class="line"><span class="comment">/** </span></div><div class="line"><span class="comment"> * 所以:访问init之前,要先定义ACC</span></div><div class="line"><span class="comment"> * 当你从正常页面访问的时候,他会给你一把ACC钥匙</span></div><div class="line"><span class="comment"> * 非法途径会exit退出</span></div><div class="line"><span class="comment"> */</span></div></pre></td></tr></table></figure>
+<h1 id="二、config配置文件"><a href="#二、config配置文件" class="headerlink" title="二、config配置文件"></a>二、config配置文件</h1><h2 id="config-inc-php"><a href="#config-inc-php" class="headerlink" title="config.inc.php"></a>config.inc.php</h2><blockquote>
+<p>这个函数的作用是写入配置数据,供其他页面调用;<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 示例:数据库的配置信息</span></div><div class="line">$_CONF = <span class="keyword">array</span>(</div><div class="line">	<span class="string">'DB_HOST'</span>=&gt;<span class="string">'localhost'</span>,</div><div class="line">	<span class="string">'DB_USER'</span>=&gt;<span class="string">'root'</span>,</div><div class="line">	<span class="string">'DB_PWD'</span>=&gt;<span class="string">''</span>,</div><div class="line">	<span class="string">'DB_NAME'</span>=&gt;<span class="string">'bool'</span>,</div><div class="line">)</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="config-class-php"><a href="#config-class-php" class="headerlink" title="config.class.php"></a>config.class.php</h2><blockquote>
+<p>这个函数是调用配置数据的;<br>分析:<br>0.当只有一个类调用的时候就可以直接调用inc.php<br>2.当多个类都来调用的时候,会很乱<br>3.所以需要一个config.class.php来统一一次性将配置信息都进来,所有的类再需要配置信息,都找conf类<br>4.配置文件的类需要保持一致,让每个来读取的类都是同一个对象,所以采用单例模式</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">Class</span> <span class="title">config</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">// 保存对象</span></div><div class="line">	<span class="keyword">Protected</span> <span class="keyword">static</span> $ins = <span class="keyword">null</span>;</div><div class="line">	<span class="comment">// 配置文件</span></div><div class="line">	<span class="keyword">Public</span> $data = <span class="keyword">array</span>();</div><div class="line"></div><div class="line">	<span class="comment">// 阻止在外部实例化</span></div><div class="line">	<span class="keyword">final</span> <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="comment">// 引入配置文件</span></div><div class="line">		<span class="comment">// 一次性把配置文件读取过来,并且赋值给data</span></div><div class="line">		<span class="keyword">require</span>(ROOT.<span class="string">'include/config.inc.php'</span>);</div><div class="line">		<span class="keyword">$this</span>-&gt;data = $_CONF;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// 阻止克隆,产生新的对象</span></div><div class="line">	<span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getIns</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">if</span>(!(<span class="keyword">self</span>::$ins <span class="keyword">instanceof</span> <span class="keyword">self</span>))&#123;</div><div class="line">			<span class="keyword">self</span>::$ins = <span class="keyword">new</span> <span class="keyword">self</span>();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">self</span>::$ins;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 获取配置文件数据</span></div><div class="line">	<span class="keyword">Public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($key)</span></span>&#123;</div><div class="line">		<span class="keyword">if</span>(array_key_exists($key,<span class="keyword">$this</span>-&gt;data))&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;data[$key];</div><div class="line">		&#125;<span class="keyword">else</span>&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 可以添加修改配置文件中的数据</span></div><div class="line">	<span class="keyword">Public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span><span class="params">($key,$value)</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;data[$key] = $value;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="三、db数据库类"><a href="#三、db数据库类" class="headerlink" title="三、db数据库类"></a>三、db数据库类</h1><blockquote>
+<p>分析:<br>1.目前到底采用什么数据库,还不清楚<br>2.但是每个数据库的基本功能必须要有<br>3.所以先写一个抽象类</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">db</span></span>&#123;</div><div class="line">	<span class="comment">// 链接服务器</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">connect</span><span class="params">($h,$u,$p)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">// 发送查询</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">// 查询多行数据</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">getAll</span><span class="params">($sql)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">// 查询单行数据</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">getRow</span><span class="params">($sql)</span></span>;	</div><div class="line"></div><div class="line">	<span class="comment">// 查询单个数据</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">getOne</span><span class="params">($sql)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">// 自动执行,insert/update</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">abstract</span> <span class="function"><span class="keyword">function</span> <span class="title">autoExecute</span><span class="params">($table,$data,$act = <span class="string">'insert'</span>,$where = <span class="string">''</span>)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag">#PHP</a>
+          
+            <a href="/tags/十八哥/" rel="tag">#十八哥</a>
+          
+            <a href="/tags/BOOL商城/" rel="tag">#BOOL商城</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/31/仿TP自动验证数据/" rel="next" title="学习记录:仿TP自动验证数据">
+                <i class="fa fa-chevron-left"></i> 学习记录:仿TP自动验证数据
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/21/商城实战总结-二/" rel="prev" title="商城实战总结：搭建底层框架(二)">
+                商城实战总结：搭建底层框架(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/18/商城实战总结-一/"
+           data-title="商城实战总结：搭建底层框架(一)" data-url="http://yoursite.com/2016/02/18/商城实战总结-一/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="YooKnight" />
+          <p class="site-author-name" itemprop="name">YooKnight</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、init-php开发："><span class="nav-number">1.</span> <span class="nav-text">一、init.php开发：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-设置目录常量"><span class="nav-number">1.1.</span> <span class="nav-text">1. 设置目录常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-自动加载引入基本类库"><span class="nav-number">1.2.</span> <span class="nav-text">2. 自动加载引入基本类库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-过滤参数"><span class="nav-number">1.3.</span> <span class="nav-text">3. 过滤参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-报错级别设置"><span class="nav-number">1.4.</span> <span class="nav-text">4. 报错级别设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-权限控制"><span class="nav-number">1.5.</span> <span class="nav-text">5. 权限控制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、config配置文件"><span class="nav-number">2.</span> <span class="nav-text">二、config配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#config-inc-php"><span class="nav-number">2.1.</span> <span class="nav-text">config.inc.php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#config-class-php"><span class="nav-number">2.2.</span> <span class="nav-text">config.class.php</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、db数据库类"><span class="nav-number">3.</span> <span class="nav-text">三、db数据库类</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YooKnight</span>
+</div>
+
+<div>
+	<span id="busuanzi_container_site_pv">
+	    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+	    您是第<span id="busuanzi_value_site_uv"></span>个小伙伴
+	</span>
+</div>
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yoooknight"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

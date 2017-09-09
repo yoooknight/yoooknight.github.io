@@ -1,0 +1,742 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP,十八哥,自动验证," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="TP自动验证&amp;emsp;&amp;emsp;数据对象是由表单提交的$_POST数据创建。需要使用系统的自动验证功能，只需要在Model类里面定义">
+<meta name="keywords" content="PHP,十八哥,自动验证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习记录:仿TP自动验证数据">
+<meta property="og:url" content="http://yoursite.com/2016/01/31/仿TP自动验证数据/index.html">
+<meta property="og:site_name" content="YooKnight_Blog">
+<meta property="og:description" content="TP自动验证&amp;emsp;&amp;emsp;数据对象是由表单提交的$_POST数据创建。需要使用系统的自动验证功能，只需要在Model类里面定义">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-09T08:11:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习记录:仿TP自动验证数据">
+<meta name="twitter:description" content="TP自动验证&amp;emsp;&amp;emsp;数据对象是由表单提交的$_POST数据创建。需要使用系统的自动验证功能，只需要在Model类里面定义">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 学习记录:仿TP自动验证数据 | YooKnight_Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YooKnight_Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-heartbeat fa-fw"></i> <br />
+            
+            公益
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                学习记录:仿TP自动验证数据
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-31T00:18:09+08:00" content="2016-01-30">
+              2016-01-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/PHP学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/31/仿TP自动验证数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/31/仿TP自动验证数据/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="TP自动验证"><a href="#TP自动验证" class="headerlink" title="TP自动验证"></a>TP自动验证</h1><p>&emsp;&emsp;数据对象是由表单提交的$_POST数据创建。需要使用系统的自动验证功能，只需要在Model类里面定义<br><a id="more"></a><br>$_validate属性，是由多个验证因子组成的二维数组。</p>
+<h1 id="自动验证格式"><a href="#自动验证格式" class="headerlink" title="自动验证格式"></a>自动验证格式</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这是检测的格式:</span></div><div class="line"><span class="keyword">array</span>(<span class="string">'字段名称'</span>,<span class="string">'运用场景0/1/2'</span>,<span class="string">'错误信息'</span>,<span class="string">'规则'</span>)</div><div class="line"><span class="keyword">Protected</span> $valid=<span class="keyword">array</span>(</div><div class="line">	<span class="keyword">array</span>(<span class="string">'goods_name'</span>,<span class="string">'1'</span>,<span class="string">'商品名不能为空'</span>,<span class="string">'require'</span>),</div><div class="line">	<span class="keyword">array</span>(<span class="string">'cat_id'</span>,<span class="string">'1'</span>,<span class="string">'商品分类必须为整型'</span>,<span class="string">'number'</span>),</div><div class="line">	<span class="keyword">array</span>(<span class="string">'is_new'</span>,<span class="string">'0'</span>,<span class="string">'只能是0或者1'</span>,<span class="string">'in'</span>,<span class="string">'0,1'</span>),</div><div class="line">	<span class="keyword">array</span>(<span class="string">'goods_brief'</span>,<span class="string">'2'</span>,<span class="string">'简介字数要在1到100间'</span>,<span class="string">'between'</span>,<span class="string">'10,100'</span>)</div><div class="line">					);</div></pre></td></tr></table></figure>
+<h2 id="解释意义"><a href="#解释意义" class="headerlink" title="解释意义"></a>解释意义</h2><p>字段名称:<br>根据你的需要</p>
+<p>运用场景:</p>
+<ol>
+<li>有字段检测,无此字段不检测</li>
+<li>必须检测的字段</li>
+<li>如有且内容不空,则检测,如签名档</li>
+</ol>
+<p>规则:</p>
+<ol>
+<li>require:检测是否为空</li>
+<li>number:检测是否是数字</li>
+<li>in(0,1):检测是不是值在参数里面</li>
+<li>between(10,100):检测是不是在参数范围内</li>
+</ol>
+<h2 id="validate代码如下"><a href="#validate代码如下" class="headerlink" title="validate代码如下:"></a>validate代码如下:</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">validate</span> <span class="params">($data)</span></span>&#123;</div><div class="line">	<span class="comment">// 如果没有设置valid</span></div><div class="line">	<span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;valid))&#123;</div><div class="line">		<span class="comment">// 返回检测成功</span></div><div class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// 循环规则数组</span></div><div class="line">	<span class="keyword">foreach</span>(<span class="keyword">$this</span> -&gt; valid <span class="keyword">as</span> $k =&gt; $v)&#123;</div><div class="line">		<span class="comment">//首先判断环境0,1,2</span></div><div class="line">		<span class="keyword">switch</span>($v[<span class="string">'1'</span>])&#123;</div><div class="line">			<span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">				<span class="comment">// 1场景:必须检查</span></div><div class="line">				<span class="comment">// $v[0]是字段名</span></div><div class="line">				<span class="comment">// 如果没有设置了字段名</span></div><div class="line">				<span class="keyword">if</span>(!<span class="keyword">isset</span>($data[$v[<span class="number">0</span>]]))&#123;</div><div class="line">					<span class="keyword">$this</span>-&gt;err[]=$v[<span class="string">'2'</span>];</div><div class="line">					<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">				&#125;</div><div class="line">				<span class="comment">// 再来检测值是否为空</span></div><div class="line">				<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;check($data[$v[<span class="number">0</span>]],$v[<span class="number">3</span>]))&#123;</div><div class="line">					<span class="keyword">$this</span>-&gt;err[]=$v[<span class="number">2</span>];</div><div class="line">					<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">0</span>: </div><div class="line">				<span class="comment">// 如果没有设置,就不用验证,返回true</span></div><div class="line">				<span class="keyword">if</span>(!<span class="keyword">isset</span>($data[$v[<span class="number">0</span>]]))&#123;</div><div class="line">					<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">if</span>(!<span class="keyword">$this</span>-&gt;check($data[$v[<span class="number">0</span>]],$v[<span class="number">3</span>],$v[<span class="number">4</span>]))&#123;</div><div class="line">					<span class="keyword">$this</span>-&gt;err[]=$v[<span class="number">2</span>];</div><div class="line">					<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">			<span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">				<span class="comment">// 如果字段没有设置返回true</span></div><div class="line">				<span class="comment">// 这里用了短路</span></div><div class="line">				<span class="comment">// 如果设置了,判断是否为空,如果为空,返回true</span></div><div class="line">				<span class="comment">// 如果不为空,且字段存在,条件false,不执行</span></div><div class="line">				<span class="keyword">if</span>(!<span class="keyword">isset</span>($data[$v[<span class="number">0</span>]])||<span class="keyword">empty</span>($data[$v[<span class="number">0</span>]]))&#123;</div><div class="line">					<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">if</span>(!<span class="keyword">$this</span>-&gt;check($data[$v[<span class="number">0</span>]],$v[<span class="number">3</span>],$v[<span class="number">4</span>]))&#123;</div><div class="line">					<span class="keyword">$this</span>-&gt;err[<span class="string">'err'</span>]=$v[<span class="string">'2'</span>];</div><div class="line">					<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="check代码如下"><a href="#check代码如下" class="headerlink" title="check代码如下:"></a>check代码如下:</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// $value:字段名字</span></div><div class="line"><span class="comment">// $rules:规则</span></div><div class="line"><span class="comment">// $param:规则对应的参数</span></div><div class="line"><span class="keyword">Protected</span> <span class="function"><span class="keyword">function</span> <span class="title">check</span><span class="params">($value,$rules=<span class="string">''</span>,$param=<span class="string">''</span>)</span></span>&#123;</div><div class="line">	<span class="keyword">switch</span>($rules)&#123;</div><div class="line">		<span class="comment">// 判断是否为空</span></div><div class="line">		<span class="keyword">case</span> <span class="string">'require'</span>:</div><div class="line">			<span class="keyword">return</span> <span class="keyword">empty</span>($value);</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		<span class="comment">// 当他不是数字的时候,返回true,在valid端就直接执行</span></div><div class="line">		<span class="keyword">case</span> <span class="string">'number'</span>:</div><div class="line">			<span class="keyword">return</span> !is_numeric($value);</div><div class="line">		<span class="comment">// 判断在in中</span></div><div class="line">		<span class="keyword">case</span> <span class="string">'in'</span>:</div><div class="line">			$arr=explode(<span class="string">','</span>,$param);</div><div class="line">			<span class="keyword">return</span> in_array($value,$arr);</div><div class="line">		<span class="keyword">case</span> <span class="string">'between'</span>:</div><div class="line">			$arr=explode(<span class="string">','</span>,$param);</div><div class="line">			<span class="keyword">return</span> strlen($value)&gt;=$arr[<span class="number">0</span>]&amp;&amp;strlen($value)&lt;=$arr[<span class="number">1</span>];</div><div class="line">			&#125;</div><div class="line">		&#125;</div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这样就可以自动验证了.但是功能只有几个,更多功能可以在check里面添加.</p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag">#PHP</a>
+          
+            <a href="/tags/十八哥/" rel="tag">#十八哥</a>
+          
+            <a href="/tags/自动验证/" rel="tag">#自动验证</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/18/商城实战总结-一/" rel="prev" title="商城实战总结：搭建底层框架(一)">
+                商城实战总结：搭建底层框架(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/31/仿TP自动验证数据/"
+           data-title="学习记录:仿TP自动验证数据" data-url="http://yoursite.com/2016/01/31/仿TP自动验证数据/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="YooKnight" />
+          <p class="site-author-name" itemprop="name">YooKnight</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TP自动验证"><span class="nav-number">1.</span> <span class="nav-text">TP自动验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动验证格式"><span class="nav-number">2.</span> <span class="nav-text">自动验证格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解释意义"><span class="nav-number">2.1.</span> <span class="nav-text">解释意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#validate代码如下"><span class="nav-number">2.2.</span> <span class="nav-text">validate代码如下:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#check代码如下"><span class="nav-number">2.3.</span> <span class="nav-text">check代码如下:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YooKnight</span>
+</div>
+
+<div>
+	<span id="busuanzi_container_site_pv">
+	    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+	    您是第<span id="busuanzi_value_site_uv"></span>个小伙伴
+	</span>
+</div>
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yoooknight"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>
